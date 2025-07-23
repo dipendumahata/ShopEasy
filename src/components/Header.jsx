@@ -25,6 +25,13 @@ const Header = () => {
               </span>
             )}
           </Link>
+          <Link
+            to="/profile"
+            className="text-gray-700 hover:text-blue-600 font-medium transition"
+          >
+            Profile
+          </Link>
+
         </nav>
       </div>
     </header>

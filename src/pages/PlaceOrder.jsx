@@ -16,17 +16,19 @@ const PlaceOrderPage = () => {
   const [error, setError] = useState('')
 
   const handleOrder = () => {
-    if (!name.trim() || !address.trim()) {
-      setError('Please fill in all required fields.')
-      return
-    }
-
-    // Optional: Clear cart after placing order
-    // dispatch(cartSlice.actions.clearCart()) // Uncomment if you add a clearCart reducer
-
-    alert(`✅ Order placed successfully!\n\nName: ${name}\nTotal: ₹${totalAmount.toFixed(2)}`)
-    navigate('/')
+  if (!name.trim() || !address.trim()) {
+    setError('Please fill in all required fields.')
+    return
   }
+
+  // ✅ Save user profile info
+  localStorage.setItem('userProfile', JSON.stringify({ name, address, phone }))
+  localStorage.setItem('lastOrderTotal', totalAmount.toFixed(2))
+
+  alert(`✅ Order placed successfully!\n\nName: ${name}\nTotal: ₹${totalAmount.toFixed(2)}`)
+  navigate('/')
+}
+
 
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-8">
