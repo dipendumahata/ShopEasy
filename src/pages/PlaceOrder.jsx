@@ -31,6 +31,7 @@ const PlaceOrderPage = () => {
 
 
   return (
+    <div className="bg-gray-50 dark:bg-gray-900 min-h-screen text-gray-800 dark:text-gray-100">
     <div className="min-h-screen bg-gray-50 px-4 py-8">
       <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">🧾 Order Summary</h1>
 
@@ -107,6 +108,7 @@ const PlaceOrderPage = () => {
           </div>
         </div>
       )}
+    </div>
     </div>
   )
 }

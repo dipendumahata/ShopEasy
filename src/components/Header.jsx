@@ -1,37 +1,53 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { ShoppingCart } from 'lucide-react' // optional icon
 
 const Header = () => {
   const cartCount = useSelector(state => state.cartReducer.cartItems.length)
+  const [darkMode, setDarkMode] = useState(false)
+
+  // Toggle dark mode
+  const toggleDarkMode = () => {
+    const html = document.documentElement
+    if (html.classList.contains('dark')) {
+      html.classList.remove('dark')
+      setDarkMode(false)
+      localStorage.setItem('theme', 'light')
+    } else {
+      html.classList.add('dark')
+      setDarkMode(true)
+      localStorage.setItem('theme', 'dark')
+    }
+  }
+
+  // Load saved theme on page load
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme')
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark')
+      setDarkMode(true)
+    }
+  }, [])
 
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50">
-      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        <Link to="/" className="text-2xl font-bold text-blue-600 hover:text-blue-800 transition">
+    <header className="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-50">
+      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <Link to="/" className="text-2xl font-bold text-blue-600 dark:text-white">
           🛒 ShopEasy
         </Link>
-        <nav className="flex items-center space-x-6">
-          <Link to="/" className="text-gray-700 hover:text-blue-600 font-medium transition">
-            Home
-          </Link>
-          <Link to="/cart" className="relative text-gray-700 hover:text-blue-600 font-medium transition">
-            <ShoppingCart className="inline mr-1" size={20} />
-            Cart
-            {cartCount > 0 && (
-              <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                {cartCount}
-              </span>
-            )}
-          </Link>
-          <Link
-            to="/profile"
-            className="text-gray-700 hover:text-blue-600 font-medium transition"
-          >
-            Profile
-          </Link>
 
+        <nav className="flex items-center gap-4 text-gray-700 dark:text-gray-100">
+          <Link to="/">Home</Link>
+          <Link to="/cart">Cart ({cartCount})</Link>
+          <Link to="/profile">Profile</Link>
+
+          {/* Dark Mode Toggle */}
+          <button
+            onClick={toggleDarkMode}
+            className="ml-4 px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-full text-sm"
+          >
+            {darkMode ? '☀️ Light' : '🌙 Dark'}
+          </button>
         </nav>
       </div>
     </header>

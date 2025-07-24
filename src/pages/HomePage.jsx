@@ -18,6 +18,7 @@ const HomePage = () => {
   )
 
   return (
+    <div className="bg-gray-50 dark:bg-gray-900 min-h-screen text-gray-800 dark:text-gray-100">
     <div className="min-h-screen bg-gray-50 px-4 py-6">
       <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
         🆕 Get Latest Products Here
@@ -48,6 +49,7 @@ const HomePage = () => {
           )}
         </div>
       )}
+    </div>
     </div>
   )
 }
