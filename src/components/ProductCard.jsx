@@ -4,24 +4,25 @@ import { addToCart, removeFromCart } from '../redux/slices/cartSlice'
 
 const ProductCard = ({ product, page }) => {
   const dispatch = useDispatch()
-
-  // Apply discount: 10% to 15%
-  const discountPercent = Math.floor(Math.random() * 6) + 10 // Random between 10 and 15
-  const discountedPrice = (product.price * (1 - discountPercent / 100)).toFixed(2)
+  const discountPercent = product.discountPercent || Math.floor(Math.random() * 6) + 10
+  const discountedPrice = product.discountedPrice || (product.price * (1 - discountPercent / 100)).toFixed(2)
 
   return (
-    <div className="w-full max-w-xs bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all overflow-hidden flex flex-col">
+    <div className="w-full max-w-xs mx-auto bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 
+                    rounded-2xl shadow-md hover:shadow-xl transition-all overflow-hidden flex flex-col">
       <img
         src={product.thumbnail}
         alt={product.title}
-        className="w-full h-48 object-cover"
+        className="w-full h-48 object-cover rounded-t-2xl"
       />
 
       <div className="p-4 flex-grow">
-        <h2 className="text-lg font-semibold text-gray-800">{product.title}</h2>
-        <p className="text-sm text-gray-600 mt-2 line-clamp-2">{product.description}</p>
+        <h2 className="text-lg font-semibold">{product.title}</h2>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 line-clamp-2">
+          {product.description}
+        </p>
 
-        {/* Pricing Section */}
+        {/* Price Section */}
         <div className="mt-3">
           <span className="text-xl font-bold text-green-600">₹{discountedPrice}</span>
           <span className="text-sm line-through text-gray-400 ml-2">₹{product.price}</span>
